@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>New offer</title>
+    <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{/css/interview/view-offer-detail.css}">
+    <link rel="stylesheet" th:href="@{/css/common/view-detail-entity-common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/simplebar.css}">
+    <link rel="stylesheet" th:href="@{/css/common/side-bar.css}">
+</head>
+
+<body>
+<div class="container grand-parent">
+    <div id="title" class="h1">Offer</div>
+    <div class="d-flex justify-content-end mt-4 mb-2 gap-2">
+
+        <a th:href="@{/accept-offer(token=${candidateInfo.offerToken})}"
+           th:if="${acceptButton}" th:text="${acceptButton}" class="btn btn-success">
+        </a>
+
+        <a th:href="@{/decline-offer(token=${candidateInfo.offerToken})}"
+           th:if="${declineButton}" th:text="${declineButton}" class="btn btn-warning">
+        </a>
+    </div>
+
+    <form class="d-flex justify-content-between mt-7" action="" th:object="${candidateInfo}">
+        <div class="col-md-6 d-flex justify-content-start">
+            <div class="col-md-9">
+                <div class="div-note">
+                    <span class="h5-sub">Candidate</span>
+                    <span class="rent-space-data" th:text="${candidateInfo.getCandidate().fullName}"></span>
+                </div>
+
+                <div class="div-to-space"></div>
+                <div class="div-note">
+                    <span class="h5-sub">Position</span>
+                    <span class="rent-space-data" th:text="${candidateInfo.getPosition().getPositionName()}"></span>
+                </div>
+
+                <div class="div-to-space"></div>
+                <div class="div-note">
+                    <span class="h5-sub">Approver</span>
+                    <span class="rent-space-data" th:text="${candidateInfo.getApprovedBy().fullName}"></span>
+                </div>
+
+
+                <div class="div-to-space"></div>
+                <div class="div-note">
+                    <span class="h5-sub">Interview Info</span>
+                    <div>
+                                <span class="rent-space-data"
+                                      th:each="interview: ${candidateInfo.getInterviewInfo().getScheduleTitle()}"
+                                      th:text="${interview}"></span>
+                        <div class="mt-3">
+                            <span class="rent-space-data"> From </span>
+                            <span class="rent-space-data" th:text="${candidateInfo.getContractPeriodFrom()}"></span>
+                            <span class="rent-space-data"> To </span>
+                            <span class="rent-space-data" th:text="${candidateInfo.getContractPeriodTo()}"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="div-to-space"></div>
+                <div class="div-note">
+                    <span class="h5-sub">Interview Notes</span>
+                    <span class="rent-space-data" th:text="${candidateInfo.getInterviewNotes()}"></span>
+                </div>
+
+                <div class="div-to-space"></div>
+                <div class="div-note">
+                    <span class="h5-sub">Status</span>
+                    <span class="rent-space-data" th:text="${candidateInfo.getOfferStatus()}"></span>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6 d-flex justify-content-end">
+            <div class="col-md-10">
+                <div class="div-note">
+                    <span class="h5-sub">Contract Type</span>
+                    <span class="rent-space-data" th:text="${candidateInfo.getContractType()}"></span>
+                </div>
+
+                <div class="div-to-space"></div>
+                <div class="div-note">
+                    <span class="h5-sub">Level</span>
+                    <span class="rent-space-data" th:text="${candidateInfo.getLevel().levelName}"
+                          id="interviewer"></span>
+                </div>
+
+                <div class="div-to-space"></div>
+                <div class="div-note">
+                    <span class="h5-sub">Department</span>
+                    <span class="rent-space-data" th:text="${candidateInfo.getDepartment().departmentName}"></span>
+                </div>
+
+                <div class="div-to-space"></div>
+                <div class="div-note">
+                    <span class="h5-sub">Recruiter owner</span>
+                    <span class="rent-space-data"
+                          th:text="${candidateInfo.getRecruiterOwner().recruiterName}"></span>
+                </div>
+
+                <div class="div-to-space"></div>
+                <div class="div-note">
+                    <span class="h5-sub">Due Date</span>
+                    <span class="rent-space-data" th:text="${candidateInfo.getDueDate()}"><a href=""></a></span>
+                </div>
+
+                <div class="div-to-space"></div>
+                <div class="div-note">
+                    <span class="h5-sub">Basic Salary</span>
+                    <span class="rent-space-data" th:text="${candidateInfo.getBasicSalary()}"></span>
+                </div>
+
+                <div class="div-to-space"></div>
+                <div class="div-note">
+                    <span class="h5-sub">Note</span>
+                    <span class="rent-space-data" th:text="${candidateInfo.getNote()}"></span>
+                </div>
+
+            </div>
+        </div>
+</div>
+</form>
+<div class="modal fade text-center" id="confirmModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title text-center w-100 text-white" id="modal-title"></h5>
+                <span class="close" aria-hidden="true">&times;</span>
+            </div>
+
+            <div class="modal-body">
+                <p class="lead" id="confirmText"></p>
+            </div>
+
+            <div class="modal-footer d-flex justify-content-center">
+                <a id="yesBtn" class="btn btn-danger">Yes</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<!-- CONTENT END -->
+<!--</div>-->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+<script>
+    $(".cancel").on("click", function (e) {
+        e.preventDefault();
+        let link = $(this);
+        let cancelURL = link.attr("href");
+        $("#modal-title").html("Cancel confirmation")
+        $("#confirmText").html("Do you want to cancel this offer?");
+        $("#confirmModal").modal('show');
+
+        $('#yesBtn').on("click", function () {
+            window.location.href = cancelURL;
+        })
+        $('.fade').removeClass('modal-backdrop')
+    });
+    $("#confirmModal .modal-footer .btn-secondary, #confirmModal .modal-header .close").on("click", function () {
+        $("#confirmModal").modal('hide');
+    });
+</script>
+</body>
+
+</html>
